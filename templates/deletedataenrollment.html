@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Penghapusan Data Enrollment</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    </head>
+    <body class="red-theme">
+        <h2>Penghapusan Data Karyawan</h2>
+        <div class="form-container">
+            <form action="/delete_enrollment" method="post">
+                <label class="field-label" for="user_id">User ID:</label>
+                <input type="text" id="user_id" name="user_id" placeholder="User ID">
+                <br>
+                <input type="submit" value="Cari" class="delete-button">
+            </form>
+            <a href="/" class="home-button yellow-button">Kembali ke Home</a>
+        </div>
+        {% if data_list %}
+        <h1> Data found</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>User ID</th>
+                    <th>Course Title</th>
+                    <th>Enrollment Date</th>
+                    <th>Completion Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in data_list %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{data.user_id}}</td>
+                    <td>{{data.course.title}}</td>
+                    <td>{{data.enrollment_date}}</td>
+                    <td>{{data.completion_date}}</td>
+                    <td>
+                        <button onclick="confirmDelete('{{ data.enrollment_id }}','{{data.user_id}}')"
+                            class="delete-button">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <script>
+            function confirmDelete(enrollment_id, user_id){
+                const isConfirmed = confirm(`Apakah Anda yakin ingin menghapus data ${user_id}?`);
+                if(isConfirmed){
+                    fetch(`/enrollment/${enrollment_id}`,{
+                        method: 'DELETE',
+                    })
+                    .then(response => response.json())
+                    .then(data =>{
+                        if(data.message.includes("berhasil dihapus")){
+                            alert("Data Berhasil dihapus!");
+                            location.reload();
+                        }else{
+                            alert("Terjadi kesalahan saat menghapus data. Silahkan coba lagi.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error: ", error);
+                        alert("Terjadi kesalahan saat menghapus data. Silahkan coba lagi.");
+                    })
+                }
+            }
+        </script>
+        {% else %}
+        <p> Tidak ada data yang ditemukan untuk nama user yang diberikan</p>
+        {% endif %}
+    </body>
+</html>

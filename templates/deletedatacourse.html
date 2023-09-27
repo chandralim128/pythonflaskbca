@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Penghapusan Data Course</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    </head>
+    <body class="red-theme">
+        <h2>Penghapusan Data Course</h2>
+        <div class="form-container">
+            <form action="/delete_course" method="post">
+                <label class="field-label" for="title">Course title:</label>
+                <input type="text" id="title" name="title" placeholder="Course Title">
+                <br>
+                <input type="submit" value="Cari" class="delete-button">
+            </form>
+            <a href="/" class="home-button yellow-button">Kembali ke Home</a>
+        </div>
+        {% if data_list %}
+        <h1> Data found</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Title</th>
+                    <th>Instructor</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in data_list %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{course.title}}</td>
+                    <td>{{course.instructor}}</td>
+                    <td>{{course.category}}</td>
+                    <td>{{course.price}}</td>
+                    <td>
+                        <button onclick="confirmDelete('{{ course.course_id }}','{{course_title}}')"
+                            class="delete-button">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <script>
+            function confirmDelete(course_id, title){
+                const isConfirmed = confirm(`Apakah Anda yakin ingin menghapus data ${title}?`);
+                if(isConfirmed){
+                    fetch(`/course/${course_id}`,{
+                        method: 'DELETE',
+                    })
+                    .then(response => response.json())
+                    .then(data =>{
+                        if(data.message.includes("berhasil dihapus")){
+                            alert("Data Berhasil dihapus!");
+                            location.reload();
+                        }else{
+                            alert("Terjadi kesalahan saat menghapus data. Silahkan coba lagi.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error: ", error);
+                        alert("Terjadi kesalahan saat menghapus data. Silahkan coba lagi.");
+                    })
+                }
+            }
+        </script>
+        {% else %}
+        <p> Tidak ada data yang ditemukan untuk nama karyawan yang diberikan</p>
+        {% endif %}
+    </body>
+</html>

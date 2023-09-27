@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Input Data Course</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+        <style>
+            body{
+                background-color: #ffd233;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="/" class="home-button=display">Kembali ke Home</a>
+        <h1> Semua Data Courses</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Title</th>
+                    <th>Instructor</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses_list %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{course.title}}</td>
+                    <td>{{course.instructor}}</td>
+                    <td>{{course.category}}</td>
+                    <td>{{course.price}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

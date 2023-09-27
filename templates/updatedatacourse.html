@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search and Update Data</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    </head>
+    <body class="purple-theme">
+        <h2>Search Data to Update</h2>
+        <div class="form-container">
+            <form action="/update_data_course" method="post">
+                <label class="field-label" for="title">Nama Course:</label>
+                <input type="text" id="title" name="title" placeholder="Nama course">
+                <input type="submit" value="Search" class="update-button">
+            </form>
+            <a href="/" class="home-button">Kembali ke Home</a>
+        </div>
+        {% if data_list %}
+        <h1> Data found</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Title</th>
+                    <th>Instructor</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in data_list %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{data.title}}</td>
+                    <td>{{data.instructor}}</td>
+                    <td>{{data.category}}</td>
+                    <td>{{data.price}}</td>
+                    <td>
+                        <button onclick="showUpdateForm('{{ data.course_id}}','{{data.title}}','{{data.instructor}}','{{data.category}}','{{data.price}}')"
+                            class="update-button">Update</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div id="updateForm" style="display:none;">
+            <h3>Update Data:</h3>
+            <form action="/update_course" method="post">
+                <input type="hidden" id="updateId" name="course_id">
+                <label class="field-label" for="updateTitle">Nama Course:</label>
+                <input type="text" id="updateTitle" name="title" placeholder="New Title" required>
+                <label class="field-label" for="updateInstructor">Instructor:</label>
+                <input type="text" id="updateInstructor" name="instructor" placeholder="New Instructor" required>
+                <label class="field-label" for="updateCategory">Category:</label>
+                <input type="text" id="updateCategory" name="category" placeholder="New Category" required>
+                <label class="field-label" for="updatePrice">Price:</label>
+                <input type="number" id="updatePrice" name="price" placeholder="New Price" required>
+                <input type="submit" value="Submit" class="update-button">
+            </form>
+        </div>
+        <script>
+            function showUpdateForm(id, title, instructor, category, price){
+                document.getElementById('updateId').value = id;
+                document.getElementById('updateTitle').value = title;
+                document.getElementById('updateInstructor').value = instructor;
+                document.getElementById('updateCategory').value = category;
+                document.getElementById('updatePrice').value = price;
+                document.getElementById('updateForm').style.display = 'block';
+            }
+        </script>
+        {% else %}
+        <p> Tidak ada data yang ditemukan untuk nama course yang diberikan</p>
+        {% endif %}
+    </body>
+</html>

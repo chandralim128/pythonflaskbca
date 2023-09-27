@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: Ambil semua data enrollments
+  version: 1.0.0
+tags:
+  - name: Daftar API
+definitions:
+  Enrollments:
+    type: object
+    properties:
+      enrollment_id:  
+        type: integer
+        description: ID enrollment
+      user_id:
+        type: string
+        description: ID user
+      course_id:
+        type: integer
+        description: ID course
+      enrollment_date:
+        type: date
+        description: Date enrollment
+      completion_date:
+        type: date
+        description: Date completion
+      course:
+        type: object
+        description: Objek Course
+responses:
+  200:
+    description: Daftar semua enrollments
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Enrollments'

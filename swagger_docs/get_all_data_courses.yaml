@@ -1,0 +1,32 @@
+openapi: 3.0.0
+info:
+  title: Ambil semua data courses
+  version: 1.0.0
+tags:
+  - name: Daftar API
+definitions:
+  Courses:
+    type: object
+    properties:
+      course_id:  
+        type: integer
+        description: ID course
+      title:
+        type: string
+        description: Judul course
+      instructor:
+        type: string
+        description: Nama instructor
+      category:
+        type: string
+        description: Kategori course
+      price:
+        type: float
+        description: Harga course
+responses:
+  200:
+    description: Daftar semua courses
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Courses'

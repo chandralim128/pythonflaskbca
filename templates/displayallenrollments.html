@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Displat Data Enrollments</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+        <style>
+            body{
+                background-color: #ffd233;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="/" class="home-button=display">Kembali ke Home</a>
+        <h1> Semua Data Enrollments</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>User ID</th>
+                    <th>Course Title</th>
+                    <th>Enrollment Date</th>
+                    <th>Completion Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enrollment in enrollments_list %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{enrollment.user_id}}</td>
+                    <td>{{enrollment.course_title}}</td>
+                    <td>{{enrollment.enrollment_date}}</td>
+                    <td>{{enrollment.completion_date}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

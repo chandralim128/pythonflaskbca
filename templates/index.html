@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome to Stupla API</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css') }}">
+    </head>
+    <body class="blue-theme">
+        <h2>Selamat Datang di Stupla</h2>
+        <br>
+        <br>
+        <div class="menu">
+            <h3>Course</h3>
+            <br>
+            <a href="/inputCourse" class="menu-button">Input Data Course</a>
+            <a href="/display_all_courses" class="menu-button">Tampilkan Data Courses</a>
+            <a href="/update_data_course" class="menu-button">Perbarui Data Course</a>
+            <a href="/delete_course" class="menu-button">Hapus Data Course</a>
+        </div>
+        <br>
+        <br>
+        <div class="menu">
+            <h3>Enrollment</h3>
+            <br>
+            <a href="/inputEnrollment" class="menu-button">Input Data Enrollment</a>
+            <a href="/display_all_enrollments" class="menu-button">Tampilkan Data Enrollments</a>
+            <a href="/update_data_enrollment" class="menu-button">Perbarui Data Enrollment</a>
+            <a href="/delete_enrollment" class="menu-button">Hapus Data Enrollment</a>
+        </div>
+    </body>
+</html>

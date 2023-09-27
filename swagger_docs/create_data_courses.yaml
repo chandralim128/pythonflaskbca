@@ -1,0 +1,40 @@
+openapi: 3.0.0
+
+info: 
+  title: Input Data Course
+  version: 1.0.0
+
+tags:
+  - name: Daftar API
+
+parameters:
+  - in: body
+    name: body
+    description: Course yang akan ditambahkan
+    required: true
+    schema:
+      $ref: '#/definitions/Courses'
+  
+responses:
+  201: 
+    description: Course berhasil ditambahkan
+    schema:
+      $ref: '#/definitions/Courses'
+  
+definitions:
+  Courses:
+    type: object
+    propreties:
+      title:
+        type: String
+      instructor:
+        type: String
+      category:
+        type: String
+      price:
+        type: Float
+      required:
+        - title
+        - instructor
+        - category
+        - price

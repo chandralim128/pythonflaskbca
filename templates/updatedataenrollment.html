@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search and Update Data</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    </head>
+    <body class="purple-theme">
+        <h2>Search Data to Update</h2>
+        <div class="form-container">
+            <form action="/update_data_enrollment" method="post">
+                <label class="field-label" for="user">User ID:</label>
+                <input type="text" id="user" name="user" placeholder="Nama user">
+                <input type="submit" value="Search" class="update-button">
+            </form>
+            <a href="/" class="home-button">Kembali ke Home</a>
+        </div>
+        {% if data_list %}
+        <h1> Data found</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>User ID</th>
+                    <th>Course Title</th>
+                    <th>Enrollment Date</th>
+                    <th>Completion Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in data_list %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{data.user_id}}</td>
+                    <td>{{data.course.title}}</td>
+                    <td>{{data.enrollment_date}}</td>
+                    <td>{{data.completion_date}}</td>
+                    <td>
+                        <button onclick="showUpdateForm('{{ data.enrollment_id}}','{{data.user_id}}','{{data.enrollment_date}}','{{data.completion_date}}')"
+                            class="update-button">Update</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div id="updateForm" style="display:none;">
+            <h3>Update Data:</h3>
+            <form action="/update_enrollment" method="post">
+                <input type="hidden" id="updateId" name="enrollment_id">
+                <label class="field-label" for="updateUser">User ID:</label>
+                <input type="text" id="updateUser" name="user_id" placeholder="New User" required>
+                <label class="field-label" for="updateEnrollmentDate">Enrollment Date:</label>
+                <input type="date" id="updateEnrollmentDate" name="enrollment_date" placeholder="New Enrollment Date" required>
+                <label class="field-label" for="updateCompletionDate">Completion Date:</label>
+                <input type="date" id="updateCompletionDate" name="completion_date" placeholder="New Completion Date" required>
+                <input type="submit" value="Submit" class="update-button">
+            </form>
+        </div>
+        <script>
+            function showUpdateForm(id, user, enrollmentDate, completionDate){
+                document.getElementById('updateId').value = id;
+                document.getElementById('updateUser').value = user;
+                document.getElementById('updateEnrollmentDate').value = enrollmentDate;
+                document.getElementById('updateCompletionDate').value = completionDate;
+                document.getElementById('updateForm').style.display = 'block';
+            }
+        </script>
+        {% else %}
+        <p> Tidak ada data yang ditemukan untuk nama user yang diberikan</p>
+        {% endif %}
+    </body>
+</html>

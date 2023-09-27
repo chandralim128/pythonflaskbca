@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  title: Ambil Satu Data Course
+  version: 1.0.0
+tags:
+  - name: Daftar API
+definitions:
+  Enrollments:
+    type: object
+    properties:
+      enrollment_id:  
+        type: integer
+        description: ID enrollment
+      user_id:
+        type: integer
+        description: ID user
+      course_id:
+        type: integer
+        description: ID course
+      enrollment_date:
+        type: date
+        description: Date enrollment
+      completion_date:
+        type: date
+        description: Date completion
+
+parameters:
+  - name: enrollment_id
+    in: path
+    descriptions: ID enrollment yang akan diambil
+    required: true
+    type: integer
+response:
+  200:
+    description: Data satu enrollment
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Enrollments'
+  400:
+    description: Data tidak ditemukan

@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  title: Ambil Satu Data Course
+  version: 1.0.0
+tags:
+  - name: Daftar API
+definitions:
+  Courses:
+    type: object
+    properties:
+      course_id:  
+        type: integer
+        description: ID course
+      title:
+        type: string
+        description: Judul course
+      instructor:
+        type: string
+        description: Nama instructor
+      category:
+        type: string
+        description: Kategori course
+      price:
+        type: float
+        description: Harga course
+
+parameters:
+  - name: course_id
+    in: path
+    descriptions: ID course yang akan diambil
+    required: true
+    type: integer
+response:
+  200:
+    description: Data satu course
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Courses'
+  400:
+    description: Data tidak ditemukan

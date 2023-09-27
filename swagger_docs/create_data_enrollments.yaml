@@ -1,0 +1,40 @@
+openapi: 3.0.0
+
+info: 
+  title: Input Data Enrollment
+  version: 1.0.0
+
+tags:
+  - name: Daftar API
+
+parameters:
+  - in: body
+    name: body
+    description: Data enrollment yang akan ditambahkan
+    required: true
+    schema:
+      $ref: '#/definitions/Enrollments'
+  
+responses:
+  201: 
+    description: Data enrollment yang akan ditambahkan
+    schema:
+      $ref: '#/definitions/Enrollments'
+  
+definitions:
+  Enrollments:
+    type: object
+    propreties:
+      user_id:
+        type: Integer
+      course_id:
+        type: Integer
+      enrollment_date:
+        type: Date
+      completion_date:
+        type: Date
+      required:
+        - user_id
+        - course_id
+        - enrollment_date
+        - completion_date

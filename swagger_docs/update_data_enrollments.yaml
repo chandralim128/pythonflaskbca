@@ -1,0 +1,25 @@
+openapi: 3.0.0
+info:
+  title: Update Data enrollment
+  version: 1.0.0
+tags:
+  - name: Daftar API
+parameters:
+  - name: enrollment_id
+    in: path
+    descriptions: ID enrollment yang akan diambil
+    required: true
+    type: integer
+  - in: body
+    name: body
+    description: Data enrollment yang akan diperbarui
+    required: true
+    schema;
+      $ref: '#/definitions/Enrollments'
+response:
+  200:
+    description: Data berhasil diperbarui
+    schema:
+      $ref: '#/definitions/Enrollments'
+  400:
+    description: Data tidak ditemukan

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Input Data Course</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    </head>
+    <body class="blue-theme">
+        <h2>Input Data Enrollment Baru</h2>
+        <div class="form-container">
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+            <form action="/inputEnrollment" method="POST">
+                <label for="user_id">User ID:</label>
+                <input type="text" name="user_id" id="user_id" placeholder="Masukkan user id" required>
+                <br>
+                <label for="course_title">Course Title:</label>
+                <input type="text" name="course_title" id="course_title" placeholder="Masukkan title course" required>
+                <br>
+                <label for="enrollment_date">Enrollment Date:</label>
+                <input type="date" name="enrollment_date" id="enrollment_date" placeholder="Masukkan enrollment date" required>
+                <br>
+                <label for="completion_date">Completion Date:</label>
+                <input type="date" name="completion_date" id="completion_date" placeholder="Masukkan completion date" required>
+                <br>
+                <input type="submit" value="Tambahkan">
+            </form>
+            <a href="/" class="home-button yellow-button">Kembali ke Home</a>
+        </div>
+    </body>
+</html>
