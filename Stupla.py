@@ -16,7 +16,7 @@ app = Flask(__name__)
 DATABASE_PATH = 'C:\\MyFile\\TrainingFlask\\project\\StudyPlatform\\Stupla.db'
 
 # Konfigurasi Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+msqlconnector://root:ifapi3HmRFiGKYnwtYe0@containers-us-west-157.railway.app:5474/railway'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:ifapi3HmRFiGKYnwtYe0@containers-us-west-157.railway.app:5474/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Konfigurasi Swagger
