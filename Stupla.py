@@ -67,6 +67,44 @@ def create_tables():
 def index():
     return render_template('index.html')
 
+@app.route('/onecourse/<int:course_id>', methods=['GET'])
+@swag_from('swagger_docs/get_one_data_courses.yaml')
+def get_one_courses(course_id):
+    try:
+        onecourse = Courses.query.filter_by(course_id=course_id).first()
+        if onecourse:
+            data = {
+                "course_id" : onecourse.course_id,
+                "title" : onecourse.title,
+                "instructor" : onecourse.instructor,
+                "category" : onecourse.category,
+                "price" : onecourse.price
+            }
+            return jsonify(data), 200
+        else:
+            return jsonify({'message': f'Data course dengan ID {course_id} tidak ditemukan'}), 404
+    except Exception as e:
+        return jsonify ({'message': f'Terjadi kesalahan: {e}'}), 500
+
+@app.route('/oneenrollment/<int:enrollment_id>', methods=['GET'])
+@swag_from('swagger_docs/get_one_data_enrollments.yaml')
+def get_one_enrollment(enrollment_id):
+    try:
+        oneenrollment = Enrollments.query.filter_by(enrollment_id=enrollment_id).first()
+        if oneenrollment:
+            data = {
+                "enrollment_id" : oneenrollment.enrollment_id,
+                "user_id" : oneenrollment.user_id,
+                "course_id" : oneenrollment.course_id,
+                "enrollment_date" : oneenrollment.enrollment_date,
+                "completion_date" : oneenrollment.completion_date
+            }
+            return jsonify(data), 200
+        else:
+            return jsonify({'message': f'Data course dengan ID {enrollment_id} tidak ditemukan'}), 404
+    except Exception as e:
+        return jsonify ({'message': f'Terjadi kesalahan: {e}'}), 500
+
 #Koneksi API create course
 @app.route('/course', methods=['POST'])
 @swag_from('swagger_docs/create_data_courses.yaml')

@@ -30,7 +30,7 @@ parameters:
     descriptions: ID course yang akan diambil
     required: true
     type: integer
-response:
+responses:
   200:
     description: Data satu course
     schema:
