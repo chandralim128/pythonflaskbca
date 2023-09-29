@@ -14,9 +14,9 @@ parameters:
     name: body
     description: Data course yang akan diperbarui
     required: true
-    schema;
+    schema:
       $ref: '#/definitions/Courses'
-response:
+responses:
   200:
     description: Data berhasil diperbarui
     schema:

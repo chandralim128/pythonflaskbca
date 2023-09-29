@@ -1,0 +1,10 @@
+(project) C:\MyFile\TrainingFlask\project\StudyPlatform>py test_app.py
+..C:\MyFile\TrainingFlask\project\StudyPlatform\test_app.py:54: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  self.assertIsNone(Courses.query.get(course.course_id))  # Memastikan karyawan dengan id tersebut sudah dihapus
+.C:\MyFile\TrainingFlask\project\StudyPlatform\test_app.py:97: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  self.assertIsNone(Enrollments.query.get(enrollment.enrollment_id))  # Memastikan karyawan dengan id tersebut sudah dihapus
+....
+----------------------------------------------------------------------
+Ran 7 tests in 0.126s
+
+OK

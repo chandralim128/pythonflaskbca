@@ -10,7 +10,7 @@ parameters:
     description: ID Course yang akan dihapus
     required: true
     type: integer
-response:
+responses:
   200:
     description: Data course berhasil dihapus
   404:

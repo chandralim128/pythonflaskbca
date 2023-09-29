@@ -16,7 +16,7 @@ app = Flask(__name__)
 DATABASE_PATH = 'C:\\MyFile\\TrainingFlask\\project\\StudyPlatform\\Stupla.db'
 
 # Konfigurasi Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:ifapi3HmRFiGKYnwtYe0@containers-us-west-157.railway.app:5474/railway'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + DATABASE_PATH
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Konfigurasi Swagger
@@ -132,13 +132,14 @@ def create_course():
 def create_enrollments():
     # Mendapatkan data dari permintaan POST
     data = request.json
-
+    enroll_date = datetime.strptime(data['enrollment_date'], '%Y-%m-%d').date()
+    comple_date = datetime.strptime(data['completion_date'], '%Y-%m-%d').date()
     # Membuat objek Enrollments
     new_enrollment = Enrollments(
         user_id=data['user_id'],
         course_id=data['course_id'],
-        enrollment_date=data['enrollment_date'],
-        completion_date = data['completion_date']
+        enrollment_date=enroll_date,
+        completion_date = comple_date
     )
     #Menyimpan objek ke database
     db.session.add(new_enrollment)
@@ -276,6 +277,48 @@ def updatedatacourse():
         return render_template('updatedatacourse.html', data_list=data_list)
     return render_template('updatedatacourse.html')
 
+@app.route('/updateCourseSwag/<int:course_id>', methods=['POST'])
+@swag_from('swagger_docs/update_data_courses.yaml')
+def updateCourseSwagger(course_id):
+    try:
+        # Mendapatkan data dari permintaan POST
+        data = request.json
+        data_update = Courses.query.get(course_id)  
+        print(data_update)
+        if not data_update:
+            return jsonify('Data tidak ditemukan'), 404
+        data_update.course_id = data['course_id']
+        print(data['course_id'])
+        data_update.title = data['title']
+        data_update.instructor = data['instructor']
+        data_update.category = data['category']
+        data_update.price = data['price']
+        db.session.commit()
+        return jsonify('Data berhasil diupdate'), 200
+    except Exception as e:
+        return jsonify(f'Terjadi kesalahan saat update data: {str(e)}'), 500
+
+@app.route('/updateEnrollmentSwag/<int:enrollment_id>', methods=['POST'])
+@swag_from('swagger_docs/update_data_enrollments.yaml')
+def updateEnrollmentSwagger(enrollment_id):
+    try:
+        # Mendapatkan data dari permintaan POST
+        data = request.json
+        data_update = Enrollments.query.get(enrollment_id)  
+        print(data_update)
+        if not data_update:
+            return jsonify('Data tidak ditemukan'), 404
+        data_update.enrollment_id = data['enrollment_id']
+        data_update.user_id = data['user_id']
+        data_update.course.id = data['course_id']
+        data_update.enrollment_date = datetime.strptime(data['enrollment_date'], '%Y-%m-%d').date()
+        data_update.completion_date = datetime.strptime(data['completion_date'], '%Y-%m-%d').date()
+        db.session.commit()
+        return jsonify('Data berhasil diupdate'), 200
+    except Exception as e:
+        print(str(e))
+        return jsonify(f'Terjadi kesalahan saat update data: {str(e)}'), 500
+    
 @app.route('/update_course', methods=['POST'])
 def update_course():
     try:
@@ -380,6 +423,7 @@ def delete_enrollment_ui():
 @swag_from('swagger_docs/delete_data_enrollments.yaml')
 def delete_enrollment(enrollment_id):
     try:
+
         enrollment_to_delete = Enrollments.query.filter_by(enrollment_id=enrollment_id).first()
         if enrollment_to_delete:
             db.session.delete(enrollment_to_delete)

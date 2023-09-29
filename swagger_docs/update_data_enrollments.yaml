@@ -14,9 +14,9 @@ parameters:
     name: body
     description: Data enrollment yang akan diperbarui
     required: true
-    schema;
+    schema:
       $ref: '#/definitions/Enrollments'
-response:
+responses:
   200:
     description: Data berhasil diperbarui
     schema:
