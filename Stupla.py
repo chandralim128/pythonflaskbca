@@ -13,10 +13,11 @@ import os
 app = Flask(__name__)
 
 # Lokasi Database
-DATABASE_PATH = 'C:\\MyFile\\TrainingFlask\\project\\StudyPlatform\\Stupla.db'
+# DATABASE_PATH = 'C:\\MyFile\\TrainingFlask\\project\\StudyPlatform\\Stupla.db'
 
 # Konfigurasi Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + DATABASE_PATH
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + DATABASE_PATH
+app.config['SQLALCHEMY_DATABASE_URI']= 'mysql+mysqlconnector://root:ifapi3HmRFiGKYnwtYe0@containers-us-west-157.railway.app:5474/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Konfigurasi Swagger
@@ -435,4 +436,4 @@ def delete_enrollment(enrollment_id):
         return jsonify ({'message': f'Terjadi kesalahan: {e}'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5030)
+    app.run(debug=True)
